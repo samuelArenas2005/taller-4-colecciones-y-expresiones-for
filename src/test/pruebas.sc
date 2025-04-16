@@ -5,7 +5,7 @@ type Ocurrencias = List[(Char, Int)]
 
 val a = "casa"
 
-p.groupBy((x: Char) => x).toList.map( (x :(Char,String)) => (x._1,x._2.length))
+p.groupBy((x: Char) => x).toList.map( (x:Char,y:String) => (x,y.length))
 
 for {
   (char, group) <- p.groupBy((x: Char) => x).toList
