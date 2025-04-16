@@ -7,7 +7,9 @@ package object Anagramas {
   val diccionario: List[Palabra] = List("cosas", "como", "yo", "y", "ocasos", "cayo", "mocosos", "roca", "moco", "sos")
 
   def lOcPal(p: Palabra): Ocurrencias = {
-    List(('a', 2))
+    for {
+      (char, group) <- p.groupBy((x: Char) => x).toList
+    } yield (char, group.length)
   }
 
   def lOcFrase(f: Frase): Ocurrencias = List(('a', 2))
