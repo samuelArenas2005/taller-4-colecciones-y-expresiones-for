@@ -7,19 +7,31 @@ package object Anagramas {
   val diccionario: List[Palabra] = List("cosas", "como", "yo", "y", "ocasos", "cayo", "mocosos", "roca", "moco", "sos")
 
   def lOcPal(p: Palabra): Ocurrencias = {
-    for {
+    (for {
       (char, group) <- p.groupBy((x: Char) => x).toList
-    } yield (char, group.length)
+    } yield (char, group.length)).distinct
   }
 
-  def lOcFrase(f: Frase): Ocurrencias = List(('a', 2))
-
-  lazy val diccionarioPorOcurrencias: Map[Ocurrencias, List[Palabra]] = {
-    Map()
+  def lOcFrase(f: Frase): Ocurrencias = {
+    val fraseAplanada =
+      (for {
+        palabra <- f
+        character <- palabra
+        if (character != ' ')
+      } yield character).mkString;
+    lOcPal(fraseAplanada)
   }
 
-  def anagramasDePalabra(palabra: Palabra): List[Palabra] = {
-    List()
+  lazy val diccionarioPorOcurrencia: Map[Ocurrencias, List[Palabra]] = {
+    for {
+      (conjuntoPalabras, ocurrencias) <- diccionario.groupBy(x => lOcPal(x).toSet)
+    } yield (conjuntoPalabras.toList, ocurrencias)
+  }
+
+  def anagramasDePalabra(pal: Palabra): List[Palabra] = {
+    (for {
+      lista <- diccionarioPorOcurrencia.get(lOcPal(pal))
+    } yield lista).getOrElse(List())
   }
 
   def combinaciones(locurrencias: Ocurrencias): List[Ocurrencias] = {
