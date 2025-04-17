@@ -40,3 +40,7 @@ val d = ocurrenceToString(lOcFrase(c))
 anagramasDePalabra(d)
 
 "a" :: Nil
+
+anagramasDePalabra("como")
+
+diccionarioPorOcurrencia
