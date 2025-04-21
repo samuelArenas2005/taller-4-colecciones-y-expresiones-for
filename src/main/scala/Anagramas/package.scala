@@ -13,13 +13,7 @@ package object Anagramas {
   }
 
   def lOcFrase(f: Frase): Ocurrencias = {
-    val fraseAplanada =
-      (for {
-        palabra <- f
-        character <- palabra
-        if (character != ' ')
-      } yield character).mkString;
-    lOcPal(fraseAplanada)
+    lOcPal(f.mkString)
   }
 
   lazy val diccionarioPorOcurrencia: Map[Ocurrencias, List[Palabra]] = diccionario.groupBy(x => lOcPal(x))
@@ -49,14 +43,11 @@ package object Anagramas {
     val slOCMap = slOC.toMap
     for {
       (char, count) <- lOc
-      newCount = count - slOCMap.getOrElse(char, 0)
-      if newCount != 0
-    } yield (char, newCount)
+      if count - slOCMap.getOrElse(char, 0) != 0
+    } yield (char, count - slOCMap.getOrElse(char, 0))
   }
 
   def anagramasDeFrase(frase: Frase): List[Frase] = {
-
-    val fraseOcurrencias = lOcFrase(frase)
 
     def aux(ocurrencias: Ocurrencias): List[Frase] = {
       if (ocurrencias.isEmpty) List(Nil)
@@ -69,6 +60,28 @@ package object Anagramas {
       }
     }
 
-    aux(fraseOcurrencias)
+    aux(lOcFrase(frase))
   }
+
+  def aux(ocurrencias: Ocurrencias): List[Frase] = {
+
+    if (ocurrencias.isEmpty) List(Nil)
+    else {
+
+
+      combinaciones(ocurrencias).flatMap {
+        combinacion => diccionarioPorOcurrencia.getOrElse(combinacion, Nil).flatMap { palabras => aux(complemento(ocurrencias, combinacion)).map(resto => palabras :: resto) }
+      }
+
+
+
+
+    }
+
+
+
+  }
+
+
+
 }
