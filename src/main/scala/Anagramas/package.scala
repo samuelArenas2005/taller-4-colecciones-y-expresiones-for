@@ -16,7 +16,9 @@ package object Anagramas {
     lOcPal(f.mkString)
   }
 
-  lazy val diccionarioPorOcurrencia: Map[Ocurrencias, List[Palabra]] = diccionario.groupBy(x => lOcPal(x))
+  lazy val diccionarioPorOcurrencia: Map[Ocurrencias, List[Palabra]] = {
+    diccionario.groupBy(x => lOcPal(x).toSet).map(xy => (xy._1.toList, xy._2))
+  }
   
   def anagramasDePalabra(palabra: Palabra): List[Palabra] = diccionarioPorOcurrencia.getOrElse(lOcPal(palabra), List())
   
@@ -67,19 +69,10 @@ package object Anagramas {
 
     if (ocurrencias.isEmpty) List(Nil)
     else {
-
-
       combinaciones(ocurrencias).flatMap {
         combinacion => diccionarioPorOcurrencia.getOrElse(combinacion, Nil).flatMap { palabras => aux(complemento(ocurrencias, combinacion)).map(resto => palabras :: resto) }
       }
-
-
-
-
     }
-
-
-
   }
 
 

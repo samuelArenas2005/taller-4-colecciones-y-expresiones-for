@@ -8,7 +8,6 @@ val p4 = ""
 val p5 = "y"
 val p6 = "aaaa"
 
-
 // CASOS DE PRUEBA PARA lOcPal
 lOcPal(p1)  //Valor esperado: List((a,1),(b,1)....(z,1)
 lOcPal(p2)  //Valor esperado: List((n,1), (a,2), (m,1), (c,1), (r,1), (o,1))
@@ -17,8 +16,76 @@ lOcPal(p4)  //Valor esperado: List()
 lOcPal(p5)  //Valor esperado: List((y,1))
 lOcPal(p6)  //Valor esperado: List((a,4))
 
-//CASOS DE PRUBEA PARA complemento
+//PALABRAS PARA EL USO DE LAS PRUEBAS
+val fr1 = List("abcdefghijklmn")
+val fr2 = List("camaron", "camaron")
+val fr3 = List("roncama", "camaron")
+val fr4 = List()                                       // Frase vacía
+val fr5 = List("y", "y", "y")                         // Repetición de un solo carácter
+val fr6 = List("aaaa", "aaaa")
+val fr7 = List("hola", "", "mundo")                    // Palabra vacía en la frase
+val fr8 = List("a", "ab", "abc")                       // Caracteres progresivos
+// CASOS DE PRUEBA PARA lOcFrase
+lOcFrase(fr1)  // List((e,1), (n,1), (j,1), (f,1), (a,1), (m,1), (i,1), (b,1), (k,1), (d,1), (g,1), (l,1), (c,1), (h,1))
+lOcFrase(fr2)  // List((c,2), (a,4), (m,2), (o,2), (r,2), (n,2))
+lOcFrase(fr3)  // List((n,2), (a,4), (m,2), (c,2), (r,2), (o,2))
+lOcFrase(fr4)  // List()
+lOcFrase(fr5)  // List((y,3))
+lOcFrase(fr6)  // List((a,8))
 
+//CASO DE PRUEBA PARA diccionarioPorOcurrencia
+diccionarioPorOcurrencia
+
+//CASOS DE PRUEBA PARA anagramaDePalabra
+anagramasDePalabra("yo")       // Valor esperado: List("yo")
+anagramasDePalabra("orca")     // Valor esperado: List("roca")
+anagramasDePalabra("sancocho") // Valor esperado: List("")
+anagramasDePalabra("roca")     // Valor esperado: List("roca")
+anagramasDePalabra("moco")     // Valor esperado: List("como, moco")
+
+// OCCURRENCIAS PARA USO DE LAS PRUEBAS
+val oc1 = lOcPal("")         // Occurrencias de cadena vacía
+val oc2 = lOcPal("a")        // List(('a',1))
+val oc3 = lOcPal("aa")       // List(('a',2))
+val oc4 = lOcPal("ab")       // List(('a',1),('b',1))
+val oc5 = lOcPal("aab")      // List(('a',2),('b',1))
+val oc6 = lOcPal("abbc")     // List(('a',1),('b',2),('c',1))
+
+// CASOS DE PRUEBA PARA combinaciones
+combinaciones(oc1)  // Valor esperado: List(Nil)
+combinaciones(oc2)  // Valor esperado: List( List(('a',1)), Nil )
+combinaciones(oc3)  // Valor esperado: List( List(('a',2)), List(('a',1)), Nil )
+combinaciones(oc4)  // Valor esperado: List(
+//   List(('a',1),('b',1)),
+//   List(('a',1)),
+//   List(('b',1)),
+//   Nil
+// )
+combinaciones(oc5)  // Valor esperado: List(
+//   List(('a',2),('b',1)),
+//   List(('a',1),('b',1)),
+//   List(('a',2)),
+//   List(('a',1)),
+//   List(('b',1)),
+//   Nil
+// )
+
+combinaciones(oc6)  // Valor esperado: List(
+//   List(('a',1),('b',2),('c',1)),
+//   List(('a',1),('b',1),('c',1)),
+//   List(('a',1),('b',2)),
+//   List(('a',1),('b',1)),
+//   List(('a',1),('c',1)),
+//   List(('a',1)),
+//   List(('b',2),('c',1)),
+//   List(('b',1),('c',1)),
+//   List(('b',2)),
+//   List(('b',1)),
+//   List(('c',1)),
+//   Nil
+// )
+
+//CASOS DE PRUBEA PARA complemento
 //OCURRENCIAS PARA EL USO DE LAS PRUEBAS
 val o1 = lOcPal("camaron")
 val o2 = lOcPal("ron")
